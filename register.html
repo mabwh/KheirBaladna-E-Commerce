@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خير بلدنا | Kheir Baladna</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <main>
+        <!-- TODO: validate input -->
+
+        <section id="register-section">
+            <form action="register-success.html" method="get" id="register-form">
+
+                <div id="register-inputs-container">
+
+                    <label for="register-name">Name</label>
+                    <input type="text" name="name" id="register-name" placeholder="Enter your name"> 
+                    <span class="validate"></span>
+
+                    <label for="register-email">ُEmail</label>
+                    <input type="email" name="email" id="register-email" placeholder="Enter your email">
+                    <span class="validate"></span>
+
+                    <label for="register-password">Password</label>
+                    <input type="password" name="password" id="register-email" placeholder="Enter your password">
+                    <span class="validate"></span>
+
+                    <label for="register-password-confirm">Confirm password</label>
+                    <input type="password" name="password" id="register-email" placeholder="Confirm your password">
+                    <span class="validate"></span>
+
+                </div>
+
+                <div id="register-submit-container">
+                    <input type="submit" id="register-submit" value="Register">
+                </div>
+            </form>
+        </section>
+    </main>
+<script src="js/script.js" type="module"></script>
+<script src="js/classes.js" type="module"></script>
+</body>
+</html>

@@ -9,6 +9,8 @@
 <body>
     <main>
         <!-- TODO: check if user exits or not -->
+        <!-- TODO: validate input -->
+        
         <section id="login-section">
             <form action="#" method="get" id="login-form">
 
@@ -16,9 +18,11 @@
 
                     <label for="login-email">ُEmail</label>
                     <input type="email" name="email" id="login-email" placeholder="Enter your email">
+                    <span class="validate"></span>
 
                     <label for="login-password">Password</label>
-                    <input type="email" name="password" id="login-email" placeholder="Enter your password">
+                    <input type="password" name="password" id="login-email" placeholder="Enter your password">
+                    <span class="validate"></span>
 
                 </div>
 
@@ -27,7 +31,7 @@
                 </div>
 
                 <div>
-                    New to our website? <a href="#">Register now</a>
+                    New to our website? <a href="register.html">Register now</a>
                 </div>
             </form>
         </section>

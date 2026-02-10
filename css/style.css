@@ -1,4 +1,6 @@
-main{
+#login-section,
+#register-section, 
+#register-success-section{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,12 +11,26 @@ input, label{
     display: block;
 }
 
-#login-submit-container{
+#login-submit-container, 
+#register-submit-container{
     display: flex;
     justify-content: center;
 }
 
-#login-inputs-container{
+#login-inputs-container, 
+#register-inputs-container{
     display: flex; 
     flex-direction: column;
+}
+
+#register-success-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.validate{
+    display: none;
+    color: red;
 }
