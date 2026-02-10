@@ -1,0 +1,20 @@
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+input, label{
+    display: block;
+}
+
+#login-submit-container{
+    display: flex;
+    justify-content: center;
+}
+
+#login-inputs-container{
+    display: flex; 
+    flex-direction: column;
+}

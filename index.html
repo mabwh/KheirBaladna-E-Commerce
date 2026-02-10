@@ -3,13 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>خير بلدنا</title>
+    <title>خير بلدنا | Kheir Baladna</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body dir="rtl">
+<body>
     <main>
-        <section>
-            
+        <!-- TODO: check if user exits or not -->
+        <section id="login-section">
+            <form action="#" method="get" id="login-form">
+
+                <div id="login-inputs-container">
+
+                    <label for="login-email">ُEmail</label>
+                    <input type="email" name="email" id="login-email" placeholder="Enter your email">
+
+                    <label for="login-password">Password</label>
+                    <input type="email" name="password" id="login-email" placeholder="Enter your password">
+
+                </div>
+
+                <div id="login-submit-container">
+                    <input type="submit" id="login-submit" value="Login">
+                </div>
+
+                <div>
+                    New to our website? <a href="#">Register now</a>
+                </div>
+            </form>
         </section>
     </main>
 <script src="js/script.js" type="module"></script>
