@@ -7,6 +7,10 @@
     height: 100vh;
 }
 
+div, p{
+    text-wrap-mode: wrap;
+}
+
 input, label{
     display: block;
 }
@@ -28,6 +32,7 @@ input, label{
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    text-align: center;
 }
 
 .validate{
