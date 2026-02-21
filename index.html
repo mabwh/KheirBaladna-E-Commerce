@@ -18,16 +18,16 @@
 
                     <label for="login-email">ُEmail</label>
                     <input type="email" name="email" id="login-email" placeholder="Enter your email">
-                    <span class="validate"></span>
+                    <span class="validate-valid"></span>
 
                     <label for="login-password">Password</label>
                     <input type="password" name="password" id="login-password" placeholder="Enter your password">
-                    <span class="validate"></span>
+                    <span class="validate-valid"></span>
 
                 </div>
 
                 <div id="login-submit-container">
-                    <input type="submit" id="login-submit" value="Login">
+                    <input type="submit" id="login-submit" value="Login" onclick="loginUser(event)">
                 </div>
 
                 <div>
@@ -35,6 +35,7 @@
                 </div>
             </form>
         </section>
+        <div id="alertBox"></div>
     </main>
 <script src="js/script.js" type="module"></script>
 <script src="js/classes.js" type="module"></script>

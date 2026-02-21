@@ -27,15 +27,33 @@ input, label{
     flex-direction: column;
 }
 
-#register-success-container{
+/* #register-success-container{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     text-align: center;
+} */
+
+.validate-valid{
+    display: none;
 }
 
-.validate{
-    display: none;
+.validate-invalid{
+    display: block;
     color: red;
+    text-wrap-mode: wrap;
+}
+
+#alertBox 
+{
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border: 2px solid black;
+    box-shadow: 0 0 10px gray;
 }

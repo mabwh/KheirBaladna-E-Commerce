@@ -11,33 +11,34 @@
         <!-- TODO: validate input -->
 
         <section id="register-section">
-            <form action="register-success.html" method="get" id="register-form">
+            <form action="" method="get" id="register-form">
 
                 <div id="register-inputs-container">
 
                     <label for="register-name">Name</label>
                     <input type="text" name="name" id="register-name" placeholder="Enter your name"> 
-                    <span class="validate"></span>
+                    <span class="validate-valid"></span>
 
                     <label for="register-email">ُEmail</label>
                     <input type="email" name="email" id="register-email" placeholder="Enter your email">
-                    <span class="validate"></span>
+                    <span class="validate-valid"></span>
 
                     <label for="register-password">Password</label>
                     <input type="password" name="password" id="register-password" placeholder="Enter your password">
-                    <span class="validate"></span>
+                    <span class="validate-valid"></span>
 
                     <label for="register-password-confirm">Confirm password</label>
                     <input type="password" name="password-confirm" id="register-password-confirm" placeholder="Confirm your password">
-                    <span class="validate"></span>
+                    <span class="validate-valid"></span>
 
                 </div>
 
                 <div id="register-submit-container">
-                    <input type="submit" id="register-submit" value="Register">
+                    <input type="submit" id="register-submit" value="Register" onclick="registerUser(event)">
                 </div>
             </form>
         </section>
+        <div id="alertBox"></div>
     </main>
 <script src="js/script.js" type="module"></script>
 <script src="js/classes.js" type="module"></script>
