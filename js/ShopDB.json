@@ -1,0 +1,18 @@
+[
+    {"name": "Dried Molokheya", "price": 13.5, "category": "Provisions", "image": "Molokheya.jpg"},
+    {"name": "Kishk Balls", "price": 7.0, "category": "Provisions", "image": "Kishk.png"},
+    {"name": "Roasted Dates", "price": 25.0, "category": "Provisions", "image": "Dates.jpg"},
+    {"name": "Black Honey", "price": 22.25, "category": "Provisions", "image": "BlackHoney.png"},
+
+
+    {"name": "Dhani Cheese", "price": 50.0, "category": "Dairy", "image": "DhaniCheese.png"},
+    {"name": "Mesh Cheese", "price": 35.5, "category": "Dairy", "image": "MeshCheese.jpg"},
+
+    {"name": "Bettaw Bread", "price": 24.0, "category": "Baked", "image": "Bettaw.jpg"},
+    {"name": "Dhelli Bread", "price": 20.5, "category": "Baked", "image": "Dhelli.jpg"},
+    {"name": "Shamsi Bread", "price": 22.0, "category": "Baked", "image": "Shamsi.jpg"},
+    {"name": "Kahk", "price": 15.0, "category": "Baked", "image": "Kahk.webp"},
+    {"name": "Fayesh", "price": 13.5, "category": "Baked", "image": "Fayesh.jpg"},
+    {"name": "Qaraqeesh", "price": 12.0, "category": "Baked", "image": "Qaraqeesh.jpg"}
+
+]

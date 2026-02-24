@@ -152,11 +152,11 @@ function loginUser(event)
     }
 }
 
-function showAlert(message, alertBoxId, callback) {
+function showAlert(message, alertBoxId, callback, imgSrc) {
   let alertBox = document.getElementById(alertBoxId);
   let alertMsg = document.createElement("div");
   let closeBtn = document.createElement("button");
-  
+
   alertBox.replaceChildren();
   alertMsg.textContent = message;
   closeBtn.textContent = "OK";
