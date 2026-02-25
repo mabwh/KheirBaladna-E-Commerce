@@ -8,8 +8,6 @@
 </head>
 <body>
     <main>
-        <!-- TODO: check if user exits or not -->
-        <!-- TODO: validate input -->
         
         <section id="login-section">
             <img src="img/Logo.png" alt="Website Logo" id="login-logo-img">
@@ -39,5 +37,15 @@
     </main>
 <script src="js/register&login.js" type="module"></script>
 <script src="js/classes.js" type="module"></script>
+<script>
+    // Check if user is already logged in
+    function checkAlreadyLoggedIn() {
+        const activeUser = localStorage.getItem("activeUser");
+        if (activeUser && activeUser !== "null") {
+            window.location.href = "shop.html";
+        }
+    }
+    checkAlreadyLoggedIn();
+</script>
 </body>
 </html>

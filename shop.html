@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KheirBaladna - Shop</title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pagination.css">
+    <link rel="stylesheet" href="css/slider.css">
+</head>
+<body>
+    <h1 style="text-align: center; margin-top: 20px;">
+        Welcome to Kheir Baladna! Where the finest Upper Egyptian Goodies shine!
+    </h1>
+    <main>
+        <section id="slider-section">
+            <button class="slider-button" id="prevSlideBtn">← Previous</button>
+            <div class="slider-container">
+                <img id="sliderImage" src="img/Slider/Slide1-full.png" alt="Slider">
+                <span id="slideCounter">1 / 3</span>
+            </div>
+            <button class="slider-button" id="nextSlideBtn">Next →</button>
+        </section>
+
+        <div id="pagination-container">
+            <div id="filters-container">
+                <div class="filter-box">
+                    <h3>Price Filter</h3>
+                    <input type="number" id="min-price" placeholder="Min Price">
+                    <input type="number" id="max-price" placeholder="Max Price">
+                    <button id="price-filter-btn">Toggle Price Filter</button>
+                </div>
+
+                <div class="filter-box">
+                    <h3>Category Filter</h3>
+                    <select id="category-select">
+                        <option value="">Select Category</option>
+                        <option value="Provisions">Provisions</option>
+                        <option value="Dairy">Dairy</option>
+                        <option value="Baked">Baked</option>
+                    </select>
+                    <button id="category-filter-btn">Toggle Category Filter</button>
+                </div>
+            </div>
+
+            <div id="grid-container"></div>
+            <div id="pages-container"></div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { requireAuth, checkActiveUser, getActiveUserName } from "./js/auth.js";
+        import { initializeNavbar, initializeFooter, initializeBackToTopButton, updateCartBadge, getCartBadgeCount } from "./js/components.js";
+        
+        // Check authentication
+        if (!requireAuth()) {
+            throw new Error("User not authenticated");
+        }
+
+        // Initialize components
+        initializeNavbar(true);
+        initializeFooter();
+        initializeBackToTopButton();
+
+        // Update cart badge on load
+        updateCartBadge(getCartBadgeCount());
+
+        // Filter handlers
+        document.getElementById("price-filter-btn").onclick = function () {
+            let min = parseFloat(document.getElementById("min-price").value) || 0;
+            let max = parseFloat(document.getElementById("max-price").value) || Infinity;
+            applyPriceFilter(min, max);
+        };
+
+        document.getElementById("category-filter-btn").onclick = function () {
+            let category = document.getElementById("category-select").value;
+            if (category !== "")
+                applyCategoryFilter(category);
+        };
+    </script>
+
+    <script src="js/slider.js"></script>
+    <script src="js/pagination.js"></script>
+</body>
+</html>

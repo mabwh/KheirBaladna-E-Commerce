@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - KheirBaladna</title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        main {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .account-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .account-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 15px 0;
+        }
+
+        .account-info label {
+            font-weight: bold;
+            color: #2c3e50;
+            min-width: 120px;
+        }
+
+        .account-info span {
+            color: #555;
+            font-size: 16px;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>My Account</h1>
+
+        <div class="account-section">
+            <div class="account-info">
+                <label>Username:</label>
+                <span id="username-display">Loading...</span>
+            </div>
+
+            <div class="account-info">
+                <label>Email:</label>
+                <span id="email-display">Loading...</span>
+            </div>
+
+            <button class="delete-btn" onclick="deleteAccountHandler()">Delete My Account</button>
+
+            <div class="back-link">
+                <a href="shop.html">← Back to Shop</a>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { requireAuth, checkActiveUser, deleteAccount } from "./js/auth.js";
+        import { initializeNavbar, initializeFooter, initializeBackToTopButton } from "./js/components.js";
+
+        // Check authentication
+        if (!requireAuth()) {
+            throw new Error("User not authenticated");
+        }
+
+        // Initialize components
+        initializeNavbar(true);
+        initializeFooter();
+        initializeBackToTopButton();
+
+        // Load user information
+        const activeUser = checkActiveUser();
+        if (activeUser) {
+            document.getElementById("username-display").textContent = activeUser.name;
+            document.getElementById("email-display").textContent = activeUser.email;
+        }
+
+        // Global delete handler
+        window.deleteAccountHandler = function() {
+            if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+                const activeUser = checkActiveUser();
+                deleteAccount(activeUser.name);
+            }
+        };
+    </script>
+</body>
+</html>

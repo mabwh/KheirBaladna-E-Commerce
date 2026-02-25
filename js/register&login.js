@@ -130,6 +130,7 @@ function loginUser(event)
 
     let email = document.getElementById("login-email").value;
     let password = document.getElementById("login-password").value;
+    let user;
 
     let loginValid = false;
 
@@ -139,12 +140,17 @@ function loginUser(event)
         if(element["email"] == email && element["password"] == password)
         {
             loginValid = true;
+            user = element;
         }
     }
 
     if(loginValid)
     {
-        showAlert("Login success", "alertBox", () => {})
+        localStorage.setItem("activeUser", JSON.stringify(user))
+        showAlert("Login success", "alertBox", () => {
+            location.href = "./shop.html";
+        });
+
     }
     else
     {

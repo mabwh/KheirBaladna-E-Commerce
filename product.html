@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - KheirBaladna</title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .product-image-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .product-image {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-details-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .product-meta {
+            display: flex;
+            gap: 30px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .meta-label {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .meta-value {
+            font-size: 20px;
+            color: #e74c3c;
+        }
+
+        .product-description {
+            color: #666;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .add-to-cart-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            align-self: flex-start;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #229954;
+        }
+
+        .back-link {
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 16px;
+            display: inline-flex;
+            gap: 5px;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .product-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .product-meta {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="product-container">
+            <div class="product-image-section">
+                <img id="product-image" src="" alt="Product" class="product-image">
+            </div>
+
+            <div class="product-details-section">
+                <h1 id="product-name">Loading...</h1>
+
+                <div class="product-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Category</span>
+                        <span class="meta-value" id="product-category">-</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Price</span>
+                        <span class="meta-value" id="product-price">-</span>
+                    </div>
+                </div>
+
+                <p class="product-description" id="product-description">
+                    High-quality product from Upper Egypt, carefully selected for your satisfaction.
+                </p>
+
+                <button class="add-to-cart-btn" onclick="addToCartHandler()">Add to Cart</button>
+
+                <div class="back-link">
+                    <a href="shop.html">← Back to Shop</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { requireAuth, checkActiveUser } from "./js/auth.js";
+        import { initializeNavbar, initializeFooter, initializeBackToTopButton, updateCartBadge } from "./js/components.js";
+
+        // Check authentication
+        if (!requireAuth()) {
+            throw new Error("User not authenticated");
+        }
+
+        // Initialize components
+        initializeNavbar(true);
+        initializeFooter();
+        initializeBackToTopButton();
+
+        // Load product information
+        const activeProduct = JSON.parse(localStorage.getItem("activeProduct"));
+        if (activeProduct) {
+            document.getElementById("product-name").textContent = activeProduct.name;
+            document.getElementById("product-category").textContent = activeProduct.category;
+            document.getElementById("product-price").textContent = "$" + activeProduct.price;
+            document.getElementById("product-image").src = `img/${activeProduct.category}/${activeProduct.image}`;
+        }
+
+        // Add to cart handler
+        window.addToCartHandler = function() {
+            const activeProduct = JSON.parse(localStorage.getItem("activeProduct"));
+            let activeUser = checkActiveUser();
+
+            if (activeProduct && activeUser) {
+                if (!activeUser.cart) {
+                    activeUser.cart = { products: [] };
+                }
+
+                // Check if product already exists
+                const existingProduct = activeUser.cart.products.find(p => p.name === activeProduct.name);
+                if (existingProduct) {
+                    existingProduct.quantity = (existingProduct.quantity || 1) + 1;
+                } else {
+                    activeProduct.quantity = 1;
+                    activeUser.cart.products.push(activeProduct);
+                }
+
+                localStorage.setItem("activeUser", JSON.stringify(activeUser));
+                updateCartBadge(activeUser.cart.products.length);
+                alert("Product added to cart!");
+            }
+        };
+    </script>
+</body>
+</html>

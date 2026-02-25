@@ -1,11 +1,11 @@
 class User
 {
-    constructor(name = '', email = '', password = '', guffa = null)
+    constructor(name = '', email = '', password = '', cart = null)
     {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.guffa = guffa;
+        this.cart = cart || new Cart();
     }
 }
 
@@ -20,30 +20,41 @@ class Product
     }
 }
 
-class Quffa
+class Cart
 {
     constructor(products = null)
     {
-        this.count = 0;
-        this.products = products;
+        this.products = products || [];
     }
 
-    AddToQuffa(product) {
-        this.products.push(product);
-        this.count++;
-    }
-
-    RemoveFromQuffa(product)
-    {
-        if(this.count > 0)
-        {
-            let remIndex = this.products.findIndex(
-                p => p["name"] == product["name"]
-            );
-            this.products.splice(remIndex, 1);
-            this.count--;
+    addToCart(product) {
+        // Check if product already exists in cart
+        const existingProduct = this.products.find(p => p.name === product.name);
+        if (existingProduct) {
+            existingProduct.quantity = (existingProduct.quantity || 1) + 1;
+        } else {
+            product.quantity = 1;
+            this.products.push(product);
         }
+    }
+
+    removeFromCart(productName)
+    {
+        const index = this.products.findIndex(p => p.name === productName);
+        if (index > -1) {
+            this.products.splice(index, 1);
+        }
+    }
+
+    clearCart() {
+        this.products = [];
+    }
+
+    getTotal() {
+        return this.products.reduce((sum, product) => {
+            return sum + (product.price * (product.quantity || 1));
+        }, 0);
     }
 }
 
-export {User};
+export {User, Product, Cart};

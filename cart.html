@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - KheirBaladna</title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .cart-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        .clear-cart-btn {
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .clear-cart-btn:hover {
+            background-color: #d35400;
+        }
+
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        .cart-table thead {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        .cart-table th,
+        .cart-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .product-name {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .product-price {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .quantity {
+            text-align: center;
+            width: 60px;
+        }
+
+        .subtotal {
+            text-align: right;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 18px;
+        }
+
+        .cart-summary {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 30px;
+            gap: 30px;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+
+        .summary-item {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .summary-label {
+            font-weight: bold;
+            color: #2c3e50;
+            min-width: 100px;
+        }
+
+        .summary-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #27ae60;
+        }
+
+        .place-order-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .place-order-btn:hover {
+            background-color: #229954;
+        }
+
+        .place-order-btn:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .cart-table {
+                font-size: 14px;
+            }
+
+            .cart-table th,
+            .cart-table td {
+                padding: 10px;
+            }
+
+            .cart-summary {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Shopping Cart</h1>
+
+        <div class="cart-actions">
+            <button class="clear-cart-btn" onclick="clearCartHandler()">Clear Cart</button>
+        </div>
+
+        <div id="cart-content">
+            <div class="empty-cart">Your cart is empty</div>
+        </div>
+
+        <div id="cart-summary-container"></div>
+
+        <button class="place-order-btn" id="place-order-btn" onclick="placeOrderHandler()" style="display: none;">
+            Place Your Order
+        </button>
+
+        <div class="back-link">
+            <a href="shop.html">← Continue Shopping</a>
+        </div>
+    </main>
+
+    <script type="module">
+        import { requireAuth, checkActiveUser } from "./js/auth.js";
+        import { initializeNavbar, initializeFooter, initializeBackToTopButton, updateCartBadge } from "./js/components.js";
+
+        // Check authentication
+        if (!requireAuth()) {
+            throw new Error("User not authenticated");
+        }
+
+        // Initialize components
+        initializeNavbar(true);
+        initializeFooter();
+        initializeBackToTopButton();
+
+        // Global handlers
+        window.clearCartHandler = function() {
+            if (confirm("Are you sure you want to clear your cart?")) {
+                let activeUser = checkActiveUser();
+                if (activeUser) {
+                    activeUser.cart = { products: [] };
+                    localStorage.setItem("activeUser", JSON.stringify(activeUser));
+                    updateCartBadge(0);
+                    loadCart();
+                }
+            }
+        };
+
+        window.placeOrderHandler = function() {
+            let activeUser = checkActiveUser();
+            if (activeUser && activeUser.cart && activeUser.cart.products.length > 0) {
+                // Clear cart after placing order
+                activeUser.cart = { products: [] };
+                localStorage.setItem("activeUser", JSON.stringify(activeUser));
+                updateCartBadge(0);
+                window.location.href = "orderSuccess.html";
+            }
+        };
+
+        function loadCart() {
+            const activeUser = checkActiveUser();
+            const cartContent = document.getElementById("cart-content");
+            const summaryContainer = document.getElementById("cart-summary-container");
+            const placeOrderBtn = document.getElementById("place-order-btn");
+
+            cartContent.innerHTML = "";
+            summaryContainer.innerHTML = "";
+
+            if (!activeUser || !activeUser.cart || activeUser.cart.products.length === 0) {
+                cartContent.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
+                placeOrderBtn.style.display = "none";
+                return;
+            }
+
+            // Group products by category
+            const groupedProducts = {};
+            activeUser.cart.products.forEach(product => {
+                if (!groupedProducts[product.category]) {
+                    groupedProducts[product.category] = [];
+                }
+                groupedProducts[product.category].push(product);
+            });
+
+            // Create table
+            let tableHTML = `
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            let total = 0;
+
+            for (const category in groupedProducts) {
+                groupedProducts[category].forEach(product => {
+                    const subtotal = product.price * (product.quantity || 1);
+                    total += subtotal;
+                    tableHTML += `
+                        <tr>
+                            <td class="product-name">${product.name}</td>
+                            <td>${product.category}</td>
+                            <td class="quantity">${product.quantity || 1}</td>
+                            <td class="product-price">$${product.price}</td>
+                            <td class="subtotal">$${subtotal.toFixed(2)}</td>
+                        </tr>
+                    `;
+                });
+            }
+
+            tableHTML += `
+                    </tbody>
+                </table>
+            `;
+
+            cartContent.innerHTML = tableHTML;
+
+            // Create summary
+            const summaryHTML = `
+                <div class="cart-summary">
+                    <div class="summary-item">
+                        <span class="summary-label">Total Amount:</span>
+                        <span class="summary-value">$${total.toFixed(2)}</span>
+                    </div>
+                </div>
+            `;
+
+            summaryContainer.innerHTML = summaryHTML;
+            placeOrderBtn.style.display = "block";
+        }
+
+        // Load cart on page load
+        loadCart();
+    </script>
+</body>
+</html>
