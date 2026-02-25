@@ -1,25 +1,31 @@
+/* ============================================================
+   COMPONENTS — KheirBaladna Upper Egyptian Theme
+   ============================================================ */
+
 .back-to-top-btn {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #3498db;
+    bottom: 24px;
+    right: 24px;
+    background-color: #C8922A;
     color: white;
     border: none;
     border-radius: 50%;
     width: 50px;
     height: 50px;
-    font-size: 24px;
+    font-size: 22px;
     cursor: pointer;
     display: none;
     z-index: 99;
-    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 12px rgba(200, 146, 42, 0.45);
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
 .back-to-top-btn:hover {
-    background-color: #2980b9;
-    transform: scale(1.1);
+    background-color: #A67C3D;
+    transform: scale(1.12);
+    box-shadow: 0 6px 18px rgba(200, 146, 42, 0.55);
 }
 
 .back-to-top-btn:active {
-    transform: scale(0.95);
+    transform: scale(0.94);
 }

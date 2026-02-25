@@ -1,15 +1,21 @@
+/* ============================================================
+   NAVBAR — KheirBaladna Upper Egyptian Theme
+   ============================================================ */
+
 #navbar, .navbar-component {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #2c3e50;
-    color: white;
-    padding: 15px 30px;
+    background-color: #3D2B1F;
+    color: #FAF3E0;
+    padding: 14px 32px;
     gap: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
     position: sticky;
     top: 0;
     z-index: 100;
+    border-bottom: 3px solid #C8922A;
+    font-family: 'Lato', Arial, sans-serif;
 }
 
 .nav-item {
@@ -18,16 +24,18 @@
     gap: 8px;
     cursor: pointer;
     font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
 }
 
 .nav-item a {
-    color: white;
+    color: #FAF3E0;
     text-decoration: none;
-    transition: color 0.3s;
+    transition: color 0.25s ease;
 }
 
 .nav-item a:hover {
-    color: #3498db;
+    color: #C8922A;
 }
 
 #navbar > div:first-child,
@@ -36,8 +44,14 @@
 }
 
 #home-nav, #home {
-    font-weight: bold;
-    font-size: 18px;
+    font-weight: 700;
+    font-size: 19px;
+    color: #C8922A;
+    transition: color 0.25s ease;
+}
+
+#home-nav:hover {
+    color: #E8B04A;
 }
 
 #cart-nav {
@@ -48,7 +62,7 @@
     position: absolute;
     top: -8px;
     right: -12px;
-    background-color: #e74c3c;
+    background-color: #B84C2B;
     color: white;
     border-radius: 50%;
     padding: 2px 6px;
@@ -58,9 +72,28 @@
 
 #active-user-wrapper {
     flex: none;
+    color: #D4C5A9;
+    font-size: 15px;
+}
+
+#active-user-wrapper a {
+    color: #C8922A;
+    font-weight: 700;
 }
 
 #logout-nav,
 #logout {
     flex: none;
+}
+
+#logout-nav a,
+#logout a {
+    color: #D4C5A9;
+    font-size: 15px;
+    transition: color 0.25s ease;
+}
+
+#logout-nav a:hover,
+#logout a:hover {
+    color: #B84C2B;
 }

@@ -1,34 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Details - KheirBaladna</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/components.css">
     <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Lato', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
+            background-color: #FAF3E0;
+            color: #2D1A0E;
         }
 
         main {
             max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin: 30px auto;
+            padding: 36px;
+            background-color: #FFFBF2;
+            border-radius: 14px;
+            box-shadow: 0 6px 24px rgba(61, 43, 31, 0.11);
+            border-top: 4px solid #C8922A;
         }
 
         .product-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-top: 30px;
+            gap: 50px;
+            margin-top: 10px;
         }
 
         .product-image-section {
@@ -41,103 +55,131 @@
             width: 100%;
             max-width: 500px;
             height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(61, 43, 31, 0.2);
+            border: 2px solid #D4C5A9;
         }
 
         .product-details-section {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 22px;
         }
 
         h1 {
-            color: #2c3e50;
+            font-family: 'Playfair Display', serif;
+            color: #2D1A0E;
             margin: 0;
-            font-size: 32px;
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.3;
         }
 
         .product-meta {
             display: flex;
-            gap: 30px;
-            font-size: 18px;
-            color: #555;
+            gap: 32px;
+            font-size: 16px;
+            color: #7A6652;
+            background-color: #FAF3E0;
+            border: 1.5px solid #D4C5A9;
+            border-radius: 10px;
+            padding: 16px 20px;
         }
 
         .meta-item {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 6px;
         }
 
         .meta-label {
-            font-weight: bold;
-            color: #2c3e50;
-            font-size: 14px;
+            font-weight: 700;
+            color: #3D2B1F;
+            font-size: 11px;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .meta-value {
             font-size: 20px;
-            color: #e74c3c;
+            font-weight: 700;
+            color: #B84C2B;
+            font-family: 'Playfair Display', serif;
         }
 
         .product-description {
-            color: #666;
-            line-height: 1.6;
-            font-size: 16px;
+            color: #7A6652;
+            line-height: 1.75;
+            font-size: 15px;
+            border-left: 3px solid #C8922A;
+            padding-left: 16px;
+            font-style: italic;
         }
 
         .add-to-cart-btn {
-            background-color: #27ae60;
+            background-color: #5B7A3D;
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 5px;
+            padding: 15px 36px;
+            font-size: 17px;
+            font-weight: 700;
+            border-radius: 10px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            font-family: 'Lato', Arial, sans-serif;
+            letter-spacing: 0.5px;
             align-self: flex-start;
+            box-shadow: 0 4px 14px rgba(91, 122, 61, 0.3);
+            transition: background-color 0.25s, transform 0.15s, box-shadow 0.25s;
         }
 
         .add-to-cart-btn:hover {
-            background-color: #229954;
+            background-color: #496930;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(91, 122, 61, 0.4);
         }
 
         .back-link {
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         .back-link a {
-            color: #3498db;
+            color: #A67C3D;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 15px;
+            font-weight: 600;
             display: inline-flex;
-            gap: 5px;
+            gap: 6px;
+            transition: color 0.2s;
         }
 
         .back-link a:hover {
+            color: #C8922A;
             text-decoration: underline;
         }
 
         @media (max-width: 768px) {
+            main {
+                padding: 20px;
+                margin: 16px;
+            }
+
             .product-container {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 24px;
             }
 
             h1 {
-                font-size: 24px;
+                font-size: 1.6rem;
             }
 
             .product-meta {
                 flex-direction: column;
-                gap: 15px;
+                gap: 16px;
             }
         }
     </style>
 </head>
+
 <body>
     <main>
         <div class="product-container">
@@ -191,12 +233,12 @@
         if (activeProduct) {
             document.getElementById("product-name").textContent = activeProduct.name;
             document.getElementById("product-category").textContent = activeProduct.category;
-            document.getElementById("product-price").textContent = "$" + activeProduct.price;
+            document.getElementById("product-price").textContent = "£E " + activeProduct.price;
             document.getElementById("product-image").src = `img/${activeProduct.category}/${activeProduct.image}`;
         }
 
         // Add to cart handler
-        window.addToCartHandler = function() {
+        window.addToCartHandler = function () {
             const activeProduct = JSON.parse(localStorage.getItem("activeProduct"));
             let activeUser = checkActiveUser();
 
@@ -215,10 +257,10 @@
                 }
 
                 localStorage.setItem("activeUser", JSON.stringify(activeUser));
-                updateCartBadge(activeUser.cart.products.length);
-                alert("Product added to cart!");
+                updateCartBadge(getCartBadgeCount());
             }
         };
     </script>
 </body>
+
 </html>

@@ -15,7 +15,7 @@ export function createNavbar(isProtected = false) {
 
     nav.innerHTML = `
         <div id="home-nav" class="nav-item">Home</div>
-        <div id="contact-us-nav" class="nav-item">Contact Us</div>
+        <div id="contact-us-nav" class="nav-item"><a href="contactUs.html">Contact Us</a></div>
         <div id="cart-nav" class="nav-item">
             <a href="cart.html">
                 <img src="img/Cart.png" alt="Cart" width="30">
@@ -63,7 +63,7 @@ export function createBackToTopButton() {
     button.id = "backToTopBtn";
     button.className = "back-to-top-btn";
     button.innerHTML = `↑`;
-    
+
     window.addEventListener("scroll", () => {
         if (window.pageYOffset > 300) {
             button.style.display = "block";
@@ -98,10 +98,14 @@ export function initializeBackToTopButton() {
 }
 
 // Global logout handler
-window.handleLogout = function(event) {
+window.handleLogout = function (event) {
     event.preventDefault();
     logout();
 };
+
+// Expose globally for non-module scripts
+window.updateCartBadge = updateCartBadge;
+window.getCartBadgeCount = getCartBadgeCount;
 
 export function updateCartBadge(count) {
     const badge = document.getElementById("cart-badge");
@@ -118,7 +122,7 @@ export function updateCartBadge(count) {
 export function getCartBadgeCount() {
     const activeUser = checkActiveUser();
     if (activeUser && activeUser.cart && activeUser.cart.products) {
-        return activeUser.cart.products.length;
+        return activeUser.cart.products.reduce((total, product) => total + (product.quantity || 1), 0);
     }
     return 0;
 }

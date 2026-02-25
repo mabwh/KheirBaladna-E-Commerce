@@ -1,7 +1,7 @@
 
-let items = [];          
-let pages = [];          
-let capacity = 6;        
+let items = [];
+let pages = [];
+let capacity = 6;
 let activePageItem = null;
 
 let priceFilterActive = false;
@@ -11,22 +11,18 @@ let selectedMinPrice = 0;
 let selectedMaxPrice = Infinity;
 let selectedCategory = null;
 
-async function fetchItems()
-{
+async function fetchItems() {
     let response = await fetch("js/ShopDB.json");
     items = await response.json();
 
     paginate();
 }
 
-function filter(itemsArr, callback)
-{
+function filter(itemsArr, callback) {
     let result = [];
 
-    for (let i = 0; i < itemsArr.length; i++)
-    {
-        if (callback(itemsArr[i]))
-        {
+    for (let i = 0; i < itemsArr.length; i++) {
+        if (callback(itemsArr[i])) {
             result.push(itemsArr[i]);
         }
     }
@@ -34,23 +30,18 @@ function filter(itemsArr, callback)
     return result;
 }
 
-function paginate()
-{
+function paginate() {
     let filteredItems = items;
 
-    if (priceFilterActive)
-    {
-        filteredItems = filter(filteredItems, function(item)
-        {
+    if (priceFilterActive) {
+        filteredItems = filter(filteredItems, function (item) {
             return item.price >= selectedMinPrice &&
-                   item.price <= selectedMaxPrice;
+                item.price <= selectedMaxPrice;
         });
     }
 
-    if (categoryFilterActive)
-    {
-        filteredItems = filter(filteredItems, function(item)
-        {
+    if (categoryFilterActive) {
+        filteredItems = filter(filteredItems, function (item) {
             return item.category === selectedCategory;
         });
     }
@@ -60,16 +51,14 @@ function paginate()
     let pagesCount = Math.floor((count + capacity - 1) / capacity);
     pages = new Array(pagesCount);
 
-    for (let p = 0; p < pagesCount; p++)
-    {
+    for (let p = 0; p < pagesCount; p++) {
         let start = p * capacity;
         let end = Math.min(start + capacity, count);
         let pageSize = end - start;
 
         pages[p] = new Array(pageSize);
 
-        for (let i = start; i < end; i++)
-        {
+        for (let i = start; i < end; i++) {
             pages[p][i - start] = filteredItems[i];
         }
     }
@@ -77,8 +66,7 @@ function paginate()
     fillPages();
 }
 
-function replaceActivePageItem(oldActive, newActive)
-{
+function replaceActivePageItem(oldActive, newActive) {
     if (!newActive || isNaN(parseInt(newActive.textContent)))
         return;
 
@@ -89,8 +77,7 @@ function replaceActivePageItem(oldActive, newActive)
 }
 
 
-function createPageButton(callback, content)
-{
+function createPageButton(callback, content) {
     let btn = document.createElement("button");
     btn.onclick = callback;
     btn.textContent = content;
@@ -100,15 +87,13 @@ function createPageButton(callback, content)
 }
 
 
-function fillGrid(pageItem, pageArr)
-{
+function fillGrid(pageItem, pageArr) {
     replaceActivePageItem(activePageItem, pageItem);
 
     let grid = document.getElementById("grid-container");
     grid.replaceChildren();
 
-    for (let i = 0; i < pageArr.length; i++)
-    {
+    for (let i = 0; i < pageArr.length; i++) {
         let gridItem = document.createElement("div");
         gridItem.setAttribute("class", "grid-item");
 
@@ -117,7 +102,7 @@ function fillGrid(pageItem, pageArr)
         gridItem.innerHTML = `
             <img src="${imagePath}" alt="${pageArr[i].name}" class="product-image">
             <h4>${pageArr[i].name}</h4>
-            <p class="product-price">Price: $${pageArr[i].price}</p>
+            <p class="product-price">Price: £E ${pageArr[i].price}</p>
             <p class="product-category">Category: ${pageArr[i].category}</p>
             <div class="product-buttons">
                 <button class="btn-view-details" onclick="viewProductDetails('${pageArr[i].name}')">View Details</button>
@@ -145,7 +130,7 @@ function addProductToCart(productName) {
             if (!activeUser.cart) {
                 activeUser.cart = { products: [] };
             }
-            
+
             // Check if product already exists
             const existingProduct = activeUser.cart.products.find(p => p.name === productName);
             if (existingProduct) {
@@ -154,25 +139,17 @@ function addProductToCart(productName) {
                 product.quantity = 1;
                 activeUser.cart.products.push(product);
             }
-            
+
             localStorage.setItem("activeUser", JSON.stringify(activeUser));
-            
+
             // Update cart badge
-            const cartBadge = document.getElementById("cart-badge");
-            if (cartBadge) {
-                const newCount = activeUser.cart.products.length;
-                cartBadge.textContent = newCount;
-                cartBadge.style.display = "block";
-            }
-            
-            alert("Product added to cart!");
+            updateCartBadge(getCartBadgeCount());
         }
     }
 }
 
 
-function fillPages()
-{
+function fillPages() {
     let pagesContainer = document.getElementById("pages-container");
     pagesContainer.replaceChildren();
     activePageItem = null;
@@ -180,10 +157,8 @@ function fillPages()
     if (pages.length === 0)
         return;
 
-    let prevBtn = createPageButton(function()
-    {
-        if (activePageItem?.previousElementSibling)
-        {
+    let prevBtn = createPageButton(function () {
+        if (activePageItem?.previousElementSibling) {
             replaceActivePageItem(activePageItem, activePageItem.previousElementSibling);
             fillGrid(activePageItem, pages[parseInt(activePageItem.textContent) - 1]);
         }
@@ -191,15 +166,13 @@ function fillPages()
 
     pagesContainer.appendChild(prevBtn);
 
-    for (let i = 0; i < pages.length; i++)
-    {
+    for (let i = 0; i < pages.length; i++) {
         let pageBtn = createPageButton(
-            function(){ fillGrid(this, pages[i]); },
+            function () { fillGrid(this, pages[i]); },
             i + 1
         );
 
-        if (activePageItem == null)
-        {
+        if (activePageItem == null) {
             activePageItem = pageBtn;
             activePageItem.setAttribute("class", "active-page-item");
             fillGrid(activePageItem, pages[0]);
@@ -208,10 +181,8 @@ function fillPages()
         pagesContainer.appendChild(pageBtn);
     }
 
-    let nextBtn = createPageButton(function()
-    {
-        if (activePageItem?.nextElementSibling)
-        {
+    let nextBtn = createPageButton(function () {
+        if (activePageItem?.nextElementSibling) {
             replaceActivePageItem(activePageItem, activePageItem.nextElementSibling);
             fillGrid(activePageItem, pages[parseInt(activePageItem.textContent) - 1]);
         }
@@ -220,8 +191,7 @@ function fillPages()
     pagesContainer.appendChild(nextBtn);
 }
 
-function applyPriceFilter(min, max)
-{
+function applyPriceFilter(min, max) {
     selectedMinPrice = min;
     selectedMaxPrice = max;
     priceFilterActive = true;
@@ -229,23 +199,20 @@ function applyPriceFilter(min, max)
     paginate();
 }
 
-function clearPriceFilter()
-{
+function clearPriceFilter() {
     priceFilterActive = false;
     paginate();
 }
 
 
-function applyCategoryFilter(category)
-{
+function applyCategoryFilter(category) {
     selectedCategory = category;
     categoryFilterActive = true;
 
     paginate();
 }
 
-function clearCategoryFilter()
-{
+function clearCategoryFilter() {
     categoryFilterActive = false;
     paginate();
 }

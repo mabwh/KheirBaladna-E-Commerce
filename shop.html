@@ -1,27 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KheirBaladna - Shop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/pagination.css">
     <link rel="stylesheet" href="css/slider.css">
 </head>
+
 <body>
-    <h1 style="text-align: center; margin-top: 20px;">
+    <h1>
         Welcome to Kheir Baladna! Where the finest Upper Egyptian Goodies shine!
     </h1>
     <main>
         <section id="slider-section">
-            <button class="slider-button" id="prevSlideBtn">← Previous</button>
-            <div class="slider-container">
+            <div class="slider-wrapper">
                 <img id="sliderImage" src="img/Slider/Slide1-full.png" alt="Slider">
+                <button class="slider-button" id="prevSlideBtn" aria-label="Previous Slide">&#8592;</button>
+                <button class="slider-button" id="nextSlideBtn" aria-label="Next Slide">&#8594;</button>
                 <span id="slideCounter">1 / 3</span>
             </div>
-            <button class="slider-button" id="nextSlideBtn">Next →</button>
         </section>
 
         <div id="pagination-container">
@@ -53,7 +60,7 @@
     <script type="module">
         import { requireAuth, checkActiveUser, getActiveUserName } from "./js/auth.js";
         import { initializeNavbar, initializeFooter, initializeBackToTopButton, updateCartBadge, getCartBadgeCount } from "./js/components.js";
-        
+
         // Check authentication
         if (!requireAuth()) {
             throw new Error("User not authenticated");
@@ -84,4 +91,5 @@
     <script src="js/slider.js"></script>
     <script src="js/pagination.js"></script>
 </body>
+
 </html>

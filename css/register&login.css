@@ -1,66 +1,322 @@
+/* ============================================================
+   REGISTER & LOGIN — KheirBaladna Upper Egyptian Theme
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;600;700&display=swap');
+
+/* ── Global reset ── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', Arial, sans-serif;
+    /* Subtle woven texture via repeating gradient */
+    background-color: #FAF3E0;
+    background-image:
+        repeating-linear-gradient(45deg,
+            rgba(200, 146, 42, 0.04) 0px,
+            rgba(200, 146, 42, 0.04) 1px,
+            transparent 1px,
+            transparent 12px),
+        repeating-linear-gradient(-45deg,
+            rgba(200, 146, 42, 0.04) 0px,
+            rgba(200, 146, 42, 0.04) 1px,
+            transparent 1px,
+            transparent 12px);
+    min-height: 100vh;
+}
+
+/* ── Section layout ── */
 #login-section,
-#register-section{
+#register-section {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 30px 16px;
+    gap: 0;
 }
 
-div, p{
+/* ── Logo ── */
+#login-logo-img,
+#register-logo-img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 4px 10px rgba(61, 43, 31, 0.2));
+}
+
+/* ── Form card ── */
+#login-form,
+#register-form {
+    background-color: #FFFBF2;
+    border: 1.5px solid #D4C5A9;
+    border-radius: 16px;
+    padding: 36px 40px 32px;
+    box-shadow: 0 8px 32px rgba(61, 43, 31, 0.13);
+    min-width: 320px;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* ── Input containers ── */
+#login-inputs-container,
+#register-inputs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 20px;
+}
+
+/* ── Labels ── */
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #3D2B1F;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    margin-top: 14px;
+    margin-bottom: 5px;
+}
+
+/* ── Inputs ── */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    display: block;
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid #D4C5A9;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Lato', Arial, sans-serif;
+    color: #2D1A0E;
+    background-color: #FAF3E0;
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #C8922A;
+    box-shadow: 0 0 0 3px rgba(200, 146, 42, 0.18);
+    background-color: #FFFBF2;
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+    color: #B0A090;
+}
+
+/* ── Submit button container ── */
+#login-submit-container,
+#register-submit-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+/* ── Submit button ── */
+input[type="submit"]#login-submit,
+input[type="submit"]#register-submit {
+    display: inline-block;
+    width: 100%;
+    padding: 12px 24px;
+    background-color: #C8922A;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Lato', Arial, sans-serif;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 14px rgba(200, 146, 42, 0.35);
+    transition: background-color 0.25s, transform 0.15s, box-shadow 0.25s;
+}
+
+input[type="submit"]#login-submit:hover,
+input[type="submit"]#register-submit:hover {
+    background-color: #A67C3D;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(200, 146, 42, 0.45);
+}
+
+input[type="submit"]#login-submit:active,
+input[type="submit"]#register-submit:active {
+    transform: translateY(0px);
+}
+
+/* ── "New to our website?" text ── */
+#login-form>div:last-child,
+#register-form>div:last-child {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 14px;
+    color: #7A6652;
+}
+
+#login-form>div:last-child a,
+#register-form>div:last-child a {
+    color: #A67C3D;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+#login-form>div:last-child a:hover,
+#register-form>div:last-child a:hover {
+    color: #C8922A;
+    text-decoration: underline;
+}
+
+/* ── Validation messages ── */
+div,
+p {
     text-wrap-mode: wrap;
 }
 
-input, label{
+input,
+label {
     display: block;
 }
 
-#login-logo-img,
-#register-logo-img
-{
-    width: 20vh;
-    height: 20vh;
-}
-
-#login-submit-container, 
-#register-submit-container{
-    display: flex;
-    justify-content: center;
-}
-
-#login-inputs-container, 
-#register-inputs-container{
-    display: flex; 
-    flex-direction: column;
-}
-
-/* #register-success-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-} */
-
-.validate-valid{
+.validate-valid {
     display: none;
 }
 
-.validate-invalid{
+.validate-invalid {
     display: block;
-    color: red;
-    text-wrap-mode: wrap;
+    color: #B84C2B;
+    font-size: 12px;
+    margin-top: 4px;
+    font-weight: 600;
 }
 
-#alertBox 
-{
+/* ── Alert box — styled modal ── */
+
+/* Backdrop overlay using a huge inset box-shadow */
+#alertBox {
     display: none;
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    border: 2px solid black;
-    box-shadow: 0 0 10px gray;
+    transform: translate(-50%, -50%) scale(0.92);
+    opacity: 0;
+    z-index: 9999;
+
+    /* Card */
+    background: #FFFBF2;
+    border-radius: 16px;
+    max-width: 400px;
+    width: 90%;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Lato', Arial, sans-serif;
+    color: #2D1A0E;
+    text-align: center;
+
+    /* Subtle border + layered shadow: outer dim + card lift */
+    border: 1.5px solid #D4C5A9;
+    box-shadow:
+        0 0 0 9999px rgba(45, 26, 14, 0.45),
+        /* backdrop dim */
+        0 20px 60px rgba(61, 43, 31, 0.35);
+    /* card drop shadow */
+
+    /* Entrance animation */
+    animation: none;
+    pointer-events: none;
+}
+
+#alertBox[style*="display: block"],
+#alertBox[style*="display:block"] {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: auto;
+    animation: alertPop 0.28s cubic-bezier(0.34, 1.45, 0.64, 1) forwards;
+}
+
+@keyframes alertPop {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.88);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* ── Gold accent bar at the top ── */
+#alertBox::before {
+    content: '';
+    display: block;
+    height: 5px;
+    background: linear-gradient(90deg, #B84C2B, #C8922A, #B84C2B);
+    background-size: 200% 100%;
+    animation: shimmer 2.5s infinite linear;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* ── Inner padding wrapper ── */
+#alertBox>div {
+    padding: 28px 32px 8px;
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: #2D1A0E;
+    line-height: 1.55;
+}
+
+/* ── OK button ── */
+#alertBox>button {
+    display: block;
+    margin: 16px auto 24px;
+    padding: 11px 48px;
+    background-color: #C8922A;
+    color: #fff;
+    font-family: 'Lato', Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(200, 146, 42, 0.38);
+    transition: background-color 0.22s, transform 0.12s, box-shadow 0.22s;
+}
+
+#alertBox>button:hover {
+    background-color: #A67C3D;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(200, 146, 42, 0.48);
+}
+
+#alertBox>button:active {
+    transform: translateY(0) scale(0.96);
+    box-shadow: 0 2px 8px rgba(200, 146, 42, 0.3);
 }

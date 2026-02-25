@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>خير بلدنا | Kheir Baladna</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/register&login.css">
 </head>
+
 <body>
     <main>
         <section id="register-section">
@@ -16,7 +23,7 @@
                 <div id="register-inputs-container">
 
                     <label for="register-name">Name</label>
-                    <input type="text" name="name" id="register-name" placeholder="Enter your name"> 
+                    <input type="text" name="name" id="register-name" placeholder="Enter your name">
                     <span class="validate-valid"></span>
 
                     <label for="register-email">ُEmail</label>
@@ -28,7 +35,8 @@
                     <span class="validate-valid"></span>
 
                     <label for="register-password-confirm">Confirm password</label>
-                    <input type="password" name="password-confirm" id="register-password-confirm" placeholder="Confirm your password">
+                    <input type="password" name="password-confirm" id="register-password-confirm"
+                        placeholder="Confirm your password">
                     <span class="validate-valid"></span>
 
                 </div>
@@ -40,17 +48,18 @@
         </section>
         <div id="alertBox"></div>
     </main>
-<script src="js/register&login.js" type="module"></script>
-<script src="js/classes.js" type="module"></script>
-<script>
-    // Check if user is already logged in
-    function checkAlreadyLoggedIn() {
-        const activeUser = localStorage.getItem("activeUser");
-        if (activeUser && activeUser !== "null") {
-            window.location.href = "shop.html";
+    <script src="js/register&login.js" type="module"></script>
+    <script src="js/classes.js" type="module"></script>
+    <script>
+        // Check if user is already logged in
+        function checkAlreadyLoggedIn() {
+            const activeUser = localStorage.getItem("activeUser");
+            if (activeUser && activeUser !== "null") {
+                window.location.href = "shop.html";
+            }
         }
-    }
-    checkAlreadyLoggedIn();
-</script>
+        checkAlreadyLoggedIn();
+    </script>
 </body>
+
 </html>
