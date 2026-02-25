@@ -147,10 +147,7 @@ function loginUser(event)
     if(loginValid)
     {
         localStorage.setItem("activeUser", JSON.stringify(user))
-        showAlert("Login success", "alertBox", () => {
-            location.href = "./shop.html";
-        });
-
+        location.href = "./shop.html";
     }
     else
     {
